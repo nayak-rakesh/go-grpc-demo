@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package users;
+
+option go_package = "grpc-test/pb;pb";
+
+service UserService {
+    rpc AddUser (AddUserRequest) returns (AddUserResponse){};
+    rpc UploadImage (stream UploadImageRequest) returns (UploadImageResponse){};
+
+}
+
+message UploadImageRequest {
+    oneof data {
+        string id = 1;
+        bytes chunk = 2;
+    }
+}
+
+message UploadImageResponse {
+    string id = 1;
+}
+
+message User {
+    int32 id = 1;
+    string name = 2;
+}
+
+message AddUserRequest {
+    string name = 1;
+}
+
+message AddUserResponse {
+    User user = 2;
+}
